@@ -176,6 +176,150 @@
             margin-bottom: 1.5rem;
         }
         
+        /* 项目展示区域 */
+        .projects-section {
+            margin: 4rem 0;
+        }
+        
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
+        /* 暗色模式项目卡片 */
+        body.dark-theme .project-card {
+            background-color: #2d2d44;
+            color: #e6e6e6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .project-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        body.dark-theme .project-icon {
+            color: #74b9ff;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        body.dark-theme .project-title {
+            color: #ffffff;
+        }
+        
+        .project-description {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        body.dark-theme .project-description {
+            color: #dcdde1;
+        }
+        
+        .project-status {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .status-planning {
+            background-color: #ffeaa7;
+            color: #e17055;
+        }
+        
+        body.dark-theme .status-planning {
+            background-color: #2d3436;
+            color: #fab1a0;
+        }
+        
+        .status-in-progress {
+            background-color: #a29bfe;
+            color: white;
+        }
+        
+        body.dark-theme .status-in-progress {
+            background-color: #6c5ce7;
+            color: #dfe6e9;
+        }
+        
+        .status-special {
+            background-color: #fd79a8;
+            color: white;
+        }
+        
+        body.dark-theme .status-special {
+            background-color: #e84393;
+            color: #ffffff;
+        }
+        
+        /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        body.dark-theme .progress-container {
+            background-color: #444;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        body.dark-theme .progress-text {
+            color: #ccc;
+        }
+        
         /* 联系信息卡片 */
         .contact-card {
             background: white;
@@ -270,6 +414,21 @@
             margin-top: 1rem;
         }
         
+        /* 更新时间显示 */
+        .update-time {
+            opacity: 0.7;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .update-time i {
+            font-size: 0.9rem;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             nav {
@@ -308,8 +467,12 @@
                 font-size: 1rem;
             }
             
-            .about-text, .contact-card {
+            .about-text, .contact-card, .project-card {
                 padding: 2rem;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -337,6 +500,237 @@
                 font-size: 0.9rem;
             }
         }
+        
+        /* 视频页面样式 */
+        .video-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .video-page.active {
+            display: block;
+        }
+        
+        .video-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        body.dark-theme .video-container {
+            background: #2d2d44;
+        }
+        
+        .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        
+        body.dark-theme .video-header {
+            background: #3d3d5c;
+            border-bottom-color: #555;
+        }
+        
+        .video-header h2 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        body.dark-theme .video-header h2 {
+            color: #ffffff;
+        }
+        
+        .close-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: #ff6b81;
+            transform: rotate(90deg);
+        }
+        
+        .video-content {
+            padding: 30px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        /* 本地视频样式 */
+        .local-video {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            border-radius: 10px;
+            background-color: #000;
+            display: block;
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .control-btn i {
+            margin-right: 5px;
+        }
+        
+        body.dark-theme .control-btn {
+            background: #74b9ff;
+        }
+        
+        body.dark-theme .control-btn:hover {
+            background: #0984e3;
+        }
+        
+        .video-description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        body.dark-theme .video-description {
+            background: #3d3d5c;
+            color: #e6e6e6;
+        }
+        
+        .video-description h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        body.dark-theme .video-description h3 {
+            color: #ffffff;
+        }
+        
+        /* 视频更新时间显示 */
+        .video-update-time {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .video-description p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .video-tag {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 鬼畜视频卡片特殊样式 */
+        .kz-video-card {
+            position: relative;
+        }
+        
+        .kz-video-card::after {
+            content: '点击查看';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fd79a8;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        body.dark-theme .kz-video-card::after {
+            background: #e84393;
+        }
+        
+        /* 视频占位符样式 */
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .video-placeholder p {
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -356,6 +750,7 @@
                 <!-- 右上角：导航链接 -->
                 <div class="nav-links">
                     <a href="#about">关于</a>
+                    <a href="#projects">项目</a>
                     <a href="#contact">联系</a>
                 </div>
             </nav>
@@ -380,6 +775,62 @@
             </div>
         </section>
         
+        <!-- 正在制作的项目部分 -->
+        <section id="projects" class="projects-section">
+            <h2 class="section-title">正在制作的项目</h2>
+            <div class="projects-container">
+                <!-- 项目1 -->
+                <a href="#" class="project-card" id="blog-project">
+                    <div class="project-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="project-title">个人博客系统</h3>
+                    <div class="project-description">
+                        一个完全自定义的个人博客系统，包含文章管理、标签分类、评论功能等，使用现代前端技术和响应式设计。
+                    </div>
+                    <div class="project-status status-in-progress">
+                        开发中 (60%)
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <div class="progress-text">进度: 60%</div>
+                </a>
+                
+                <!-- 项目2 -->
+                <a href="#" class="project-card" id="game-project">
+                    <div class="project-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="project-title">小游戏合集</h3>
+                    <div class="project-description">
+                        一个包含多个小游戏的网页应用，如贪吃蛇、俄罗斯方块等，使用JavaScript和Canvas技术实现。
+                    </div>
+                    <div class="project-status status-planning">
+                        规划中
+                    </div>
+                </a>
+                
+                <!-- 项目3：鬼畜视频 -->
+                <a href="#" class="project-card kz-video-card" id="kz-video-project">
+                    <div class="project-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="project-title">鬼畜视频制作</h3>
+                    <div class="project-description">
+                        创作和制作有趣、创意的鬼畜视频，包含音频处理、视频剪辑、特效制作等内容，分享到各大视频平台。
+                    </div>
+                    <div class="project-status status-special">
+                        鬼畜创作中 (48%)
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 48%;"></div>
+                    </div>
+                    <div class="progress-text">进度: 48%</div>
+                </a>
+            </div>
+        </section>
+        
         <!-- 联系信息 -->
         <section id="contact">
             <div class="contact-card">
@@ -395,7 +846,7 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-heart"></i>
-                        <span>兴趣: 编程、摄影</span>
+                        <span>兴趣: 编程、摄影、视频创作</span>
                     </div>
                 </div>
                 <div class="social-links">
@@ -413,12 +864,81 @@
             </div>
             <p>感谢你的访问，期待与你的交流</p>
             <p class="copyright">© 2026 ZHB STUDIOS | 简单 · 真实 · 分享</p>
+            <!-- 页面更新时间显示 -->
+            <div class="update-time">
+                <i class="far fa-clock"></i>
+                <span id="last-update-time">最后更新: 加载中...</span>
+            </div>
         </div>
     </footer>
 
+    <!-- 鬼畜视频页面 -->
+    <div class="video-page" id="kz-video-page">
+        <div class="video-container">
+            <div class="video-header">
+                <h2>鬼畜视频作品展示</h2>
+                <button class="close-btn" id="close-video">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-content">
+                <!-- 本地视频播放器 -->
+                <div class="video-wrapper">
+                    <!-- 使用HTML5 video标签播放本地视频 -->
+                    <video id="localVideo" class="local-video" controls>
+                        <!-- 视频源文件，请将视频文件放在与HTML文件相同的目录下，或修改src路径 -->
+                        <source src="video/kz-video.mp4" type="video/mp4">
+                        <source src="video/kz-video.webm" type="video/webm">
+                        <source src="video/kz-video.ogg" type="video/ogg">
+                        您的浏览器不支持HTML5视频播放，请更新浏览器或使用其他浏览器访问。
+                    </video>
+                </div>
+                
+                <!-- 视频控制按钮 -->
+                <div class="video-controls">
+                    <button class="control-btn" id="playBtn">
+                        <i class="fas fa-play"></i>播放
+                    </button>
+                    <button class="control-btn" id="pauseBtn">
+                        <i class="fas fa-pause"></i>暂停
+                    </button>
+                    <button class="control-btn" id="muteBtn">
+                        <i class="fas fa-volume-up"></i>静音
+                    </button>
+                    <button class="control-btn" id="fullscreenBtn">
+                        <i class="fas fa-expand"></i>全屏
+                    </button>
+                    <button class="control-btn" id="replayBtn">
+                        <i class="fas fa-redo"></i>重播
+                    </button>
+                </div>
+                
+                <div class="video-description">
+                    <h3>
+                        视频介绍
+                        <!-- 鬼畜视频更新时间显示 -->
+                        <span class="video-update-time" id="video-update-time">
+                            <i class="far fa-clock"></i> 视频更新: 加载中...
+                        </span>
+                    </h3>
+                    <p>这是一个创意鬼畜视频作品，结合了流行文化元素和幽默剪辑手法。视频通过对原始素材的重新编排、音频处理、特效添加等手法，创造出了独特的视听体验。</p>
+                    <p>制作过程包括：素材收集、音频剪辑、视频特效、时间轴同步和后期渲染等步骤。这个项目展示了我在视频创作方面的兴趣和技术能力。</p>
+                    
+                    <div class="video-tags">
+                        <span class="video-tag">鬼畜</span>
+                        <span class="video-tag">创意剪辑</span>
+                        <span class="video-tag">音频处理</span>
+                        <span class="video-tag">特效制作</span>
+                        <span class="video-tag">幽默风格</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 平滑滚动到锚点
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
@@ -486,6 +1006,228 @@
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                 themeToggle.style.background = '#f39c12';
             }
+            
+            // 显示页面最后更新时间
+            updateLastModifiedTime();
+            
+            // 显示鬼畜视频更新时间
+            updateVideoModifiedTime();
+        });
+        
+        // 显示页面最后更新时间
+        function updateLastModifiedTime() {
+            const lastModifiedTime = document.lastModified;
+            const updateTimeElement = document.getElementById('last-update-time');
+            
+            if (lastModifiedTime) {
+                // 将日期字符串转换为更友好的格式
+                const lastModifiedDate = new Date(lastModifiedTime);
+                const options = { 
+                    year: 'numeric', 
+                    month: '2-digit', 
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                
+                // 格式化为：YYYY-MM-DD HH:MM:SS
+                const formattedDate = lastModifiedDate.toLocaleDateString('zh-CN', options).replace(/\//g, '-');
+                const formattedTime = lastModifiedDate.toLocaleTimeString('zh-CN', {hour12: false});
+                
+                // 组合显示
+                const displayTime = `最后更新: ${formattedDate} ${formattedTime}`;
+                updateTimeElement.textContent = displayTime;
+            } else {
+                updateTimeElement.textContent = '最后更新: 时间不可用';
+            }
+        }
+        
+        // 显示鬼畜视频更新时间
+        function updateVideoModifiedTime() {
+            const videoUpdateTimeElement = document.getElementById('video-update-time');
+            
+            // 这里可以硬编码一个视频更新时间，或者尝试获取视频文件的最后修改时间
+            // 由于安全限制，JavaScript无法直接获取本地文件的修改时间
+            // 所以我们可以设置一个固定的更新时间，或者让用户手动更新
+            
+            // 设置一个默认的视频更新时间
+            const videoLastUpdate = "2026-02-08 16:08:37"; // 可以手动修改这个时间
+            
+            // 显示视频更新时间
+            videoUpdateTimeElement.innerHTML = `<i class="far fa-clock"></i> 视频更新: ${videoLastUpdate}`;
+            
+            // 或者尝试通过fetch获取视频文件的最后修改时间（需要服务器支持CORS）
+            // 注意：这只适用于视频文件在服务器上的情况
+            try {
+                const videoUrl = 'video/kz-video.mp4';
+                fetch(videoUrl, { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            const lastModified = response.headers.get('Last-Modified');
+                            if (lastModified) {
+                                const videoDate = new Date(lastModified);
+                                const options = { 
+                                    year: 'numeric', 
+                                    month: '2-digit', 
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                
+                                const formattedDate = videoDate.toLocaleDateString('zh-CN', options).replace(/\//g, '-');
+                                const formattedTime = videoDate.toLocaleTimeString('zh-CN', {hour12: false});
+                                videoUpdateTimeElement.innerHTML = `<i class="far fa-clock"></i> 视频更新: ${formattedDate} ${formattedTime}`;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('无法获取视频文件更新时间，使用默认时间');
+                    });
+            } catch (error) {
+                console.log('无法获取视频文件更新时间，使用默认时间');
+            }
+        }
+        
+        // 鬼畜视频页面功能
+        const kzVideoCard = document.getElementById('kz-video-project');
+        const kzVideoPage = document.getElementById('kz-video-page');
+        const closeVideoBtn = document.getElementById('close-video');
+        const localVideo = document.getElementById('localVideo');
+        
+        // 点击鬼畜视频卡片打开视频页面
+        kzVideoCard.addEventListener('click', function(e) {
+            e.preventDefault();
+            kzVideoPage.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+            
+            // 尝试加载视频
+            localVideo.load();
+            
+            // 更新视频页面打开时间
+            updateVideoOpenTime();
+        });
+        
+        // 点击关闭按钮关闭视频页面
+        closeVideoBtn.addEventListener('click', function() {
+            kzVideoPage.classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+            localVideo.pause(); // 关闭时暂停视频
+        });
+        
+        // 点击视频页面背景关闭视频页面
+        kzVideoPage.addEventListener('click', function(e) {
+            if (e.target === kzVideoPage) {
+                kzVideoPage.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                localVideo.pause();
+            }
+        });
+        
+        // ESC键关闭视频页面
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && kzVideoPage.classList.contains('active')) {
+                kzVideoPage.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                localVideo.pause();
+            }
+        });
+        
+        // 更新视频页面打开时间
+        function updateVideoOpenTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            
+            const formattedDate = now.toLocaleDateString('zh-CN', options).replace(/\//g, '-');
+            const formattedTime = now.toLocaleTimeString('zh-CN', {hour12: false});
+            
+            // 可以在这里显示页面打开时间，如果需要的话
+            console.log(`鬼畜视频页面打开时间: ${formattedDate} ${formattedTime}`);
+        }
+        
+        // 视频控制功能
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        
+        // 播放按钮
+        playBtn.addEventListener('click', function() {
+            localVideo.play();
+        });
+        
+        // 暂停按钮
+        pauseBtn.addEventListener('click', function() {
+            localVideo.pause();
+        });
+        
+        // 静音按钮
+        muteBtn.addEventListener('click', function() {
+            if (localVideo.muted) {
+                localVideo.muted = false;
+                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>静音';
+            } else {
+                localVideo.muted = true;
+                muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>取消静音';
+            }
+        });
+        
+        // 全屏按钮
+        fullscreenBtn.addEventListener('click', function() {
+            if (localVideo.requestFullscreen) {
+                localVideo.requestFullscreen();
+            } else if (localVideo.mozRequestFullScreen) {
+                localVideo.mozRequestFullScreen();
+            } else if (localVideo.webkitRequestFullscreen) {
+                localVideo.webkitRequestFullscreen();
+            } else if (localVideo.msRequestFullscreen) {
+                localVideo.msRequestFullscreen();
+            }
+        });
+        
+        // 重播按钮
+        replayBtn.addEventListener('click', function() {
+            localVideo.currentTime = 0;
+            localVideo.play();
+        });
+        
+        // 其他项目卡片点击事件
+        document.getElementById('blog-project').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('个人博客系统页面正在开发中...');
+        });
+        
+        document.getElementById('game-project').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('小游戏合集页面正在开发中...');
+        });
+        
+        // 视频错误处理
+        localVideo.addEventListener('error', function() {
+            console.error('视频加载失败，请检查视频文件路径和格式');
+            
+            // 显示占位符提示
+            const videoWrapper = document.querySelector('.video-wrapper');
+            videoWrapper.innerHTML = `
+                <div class="video-placeholder">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>视频加载失败</p>
+                    <p>请确保视频文件位于: <strong>video/kz-video.mp4</strong></p>
+                    <p>支持的格式: MP4, WebM, Ogg</p>
+                </div>
+            `;
         });
     </script>
 </body>
