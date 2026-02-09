@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZHB3306 的个人博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 暗色模式样式 */
+        body.dark-theme {
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2rem 0 3rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* 暗色模式头部 */
+        body.dark-theme header {
+            background: linear-gradient(135deg, #3a0ca3 0%, #1a5fb4 100%);
+        }
+        
+        /* 导航栏 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        /* 左上角区域：头像和标题 */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        /* 头像样式 */
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        
+        /* 暗色模式头像 */
+        body.dark-theme .avatar {
+            background: linear-gradient(135deg, #c44569, #8e44ad);
+        }
+        
+        /* 个人空间标题 */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        /* 导航链接 - 右上角 */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        /* 欢迎语部分 */
+        .hero {
+            text-align: center;
+            padding-top: 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* 主要内容区 */
+        main {
+            padding: 3rem 0;
+            flex: 1;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        body.dark-theme .section-title {
+            color: #ffffff;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #3498db;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-text {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            color: #333;
+        }
+        
+        /* 暗色模式文本框 */
+        body.dark-theme .about-text {
+            background-color: #2d2d44;
+            color: #e6e6e6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 联系信息卡片 */
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            color: #333;
+        }
+        
+        /* 暗色模式联系卡片 */
+        body.dark-theme .contact-card {
+            background-color: #2d2d44;
+            color: #e6e6e6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .contact-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        body.dark-theme .contact-card h3 {
+            color: #ffffff;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item i {
+            color: #3498db;
+            width: 25px;
+        }
+        
+        body.dark-theme .contact-item i {
+            color: #74b9ff;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+        }
+        
+        body.dark-theme footer {
+            background: #1e272e;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+            display: inline-block;
+        }
+        
+        .social-links a:hover {
+            color: #74b9ff;
+            transform: translateY(-3px);
+        }
+        
+        body.dark-theme .social-links a:hover {
+            color: #00a8ff;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .logo-area {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 3rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-item {
+                justify-content: flex-start;
+                font-size: 1rem;
+            }
+            
+            .about-text, .contact-card {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .avatar {
+                width: 75px;
+                height: 75px;
+                font-size: 2.5rem;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container">
+            <!-- 导航栏 -->
+            <nav>
+                <!-- 左上角：头像和个人空间标题 -->
+                <div class="logo-area">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="logo">ZHB3306的个人空间</div>
+                </div>
+                
+                <!-- 右上角：导航链接 -->
+                <div class="nav-links">
+                    <a href="#about">关于</a>
+                    <a href="#contact">联系</a>
+                </div>
+            </nav>
+            
+            <!-- 欢迎语 -->
+            <div class="hero">
+                <h1>欢迎来到ZHB3306的个人博客</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container">
+        <!-- 关于部分 -->
+        <section id="about">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>你好！欢迎来到ZHB3306的个人空间。这里暂时为空，敬请期待。</p>
+                    <p>我正在构建这个空间，准备分享我的想法、学习和生活感悟。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 联系信息 -->
+        <section id="contact">
+            <div class="contact-card">
+                <h3>联系我</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>邮箱: zhb1323306@outlook.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>城市: 辽宁·沈阳</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-heart"></i>
+                        <span>兴趣: 编程、摄影</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/zhb3306/" title="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/zhb3306/"><i class="fab fa-github"></i></a>
+            </div>
+            <p>感谢你的访问，期待与你的交流</p>
+            <p class="copyright">© 2026 ZHB STUDIOS | 简单 · 真实 · 分享</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 简单的主题切换按钮
+        const themeToggle = document.createElement('button');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        themeToggle.style.position = 'fixed';
+        themeToggle.style.bottom = '20px';
+        themeToggle.style.right = '20px';
+        themeToggle.style.background = '#3498db';
+        themeToggle.style.color = 'white';
+        themeToggle.style.border = 'none';
+        themeToggle.style.borderRadius = '50%';
+        themeToggle.style.width = '50px';
+        themeToggle.style.height = '50px';
+        themeToggle.style.cursor = 'pointer';
+        themeToggle.style.zIndex = '1000';
+        themeToggle.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+        themeToggle.style.transition = 'all 0.3s';
+        
+        themeToggle.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        
+        themeToggle.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        document.body.appendChild(themeToggle);
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            if(document.body.classList.contains('dark-theme')) {
+                // 暗色模式
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggle.style.background = '#f39c12';
+            } else {
+                // 浅色模式
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                themeToggle.style.background = '#3498db';
+            }
+            
+            // 保存主题偏好到本地存储
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            localStorage.setItem('dark-theme', isDarkTheme);
+        });
+        
+        // 页面加载时检查本地存储的主题偏好
+        window.addEventListener('DOMContentLoaded', () => {
+            const isDarkTheme = localStorage.getItem('dark-theme') === 'true';
+            if (isDarkTheme) {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggle.style.background = '#f39c12';
+            }
+        });
+    </script>
+</body>
+</html>
