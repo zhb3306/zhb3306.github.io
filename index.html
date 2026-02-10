@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网站维护中 - ZHB3306的个人空间</title>
+    <title>ZHB3306 的个人博客</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -11,274 +12,1225 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e6e6e6;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+        
+        /* 暗色模式样式 */
+        body.dark-theme {
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2rem 0 3rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* 暗色模式头部 */
+        body.dark-theme header {
+            background: linear-gradient(135deg, #3a0ca3 0%, #1a5fb4 100%);
+        }
+        
+        /* 导航栏 */
+        nav {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-            line-height: 1.6;
+            margin-bottom: 2rem;
         }
         
-        .maintenance-container {
-            max-width: 700px;
-            width: 100%;
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeIn 1s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+        /* 左上角区域：头像和标题 */
         .logo-area {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 1.5rem;
         }
         
+        /* 头像样式 */
         .avatar {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, #fd79a8, #e84393);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2.5rem;
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
-        }
-        
-        .site-title {
             font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        
+        /* 暗色模式头像 */
+        body.dark-theme .avatar {
+            background: linear-gradient(135deg, #c44569, #8e44ad);
+        }
+        
+        /* 个人空间标题 */
+        .logo {
+            font-size: 1.8rem;
             font-weight: bold;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
-        .maintenance-icon {
-            font-size: 5rem;
-            color: #3498db;
-            margin: 30px 0;
-            animation: pulse 2s infinite;
+        /* 导航链接 - 右上角 */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            padding: 0.5rem 0;
         }
         
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            color: #74b9ff;
-            text-shadow: 0 2px 8px rgba(116, 185, 255, 0.3);
+        .nav-links a:hover {
+            opacity: 0.8;
         }
         
-        .message {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            color: #dfe6e9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        /* 欢迎语部分 */
+        .hero {
+            text-align: center;
+            padding-top: 1rem;
         }
         
-        .highlight-box {
-            background-color: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-            border-left: 5px solid #3498db;
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
-        .highlight-box h3 {
-            color: #74b9ff;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+        /* 主要内容区 */
+        main {
+            padding: 3rem 0;
+            flex: 1;
         }
         
-        .highlight-box ul {
-            list-style-type: none;
-            padding-left: 10px;
-        }
-        
-        .highlight-box li {
-            margin-bottom: 12px;
-            padding-left: 30px;
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            text-align: center;
             position: relative;
+            padding-bottom: 15px;
         }
         
-        .highlight-box li:before {
-            content: '✓';
+        body.dark-theme .section-title {
+            color: #ffffff;
+        }
+        
+        .section-title:after {
+            content: '';
             position: absolute;
-            left: 0;
-            color: #2ecc71;
-            font-weight: bold;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #3498db;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-text {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            color: #333;
+        }
+        
+        /* 暗色模式文本框 */
+        body.dark-theme .about-text {
+            background-color: #2d2d44;
+            color: #e6e6e6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 项目展示区域 */
+        .projects-section {
+            margin: 4rem 0;
+        }
+        
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
+        /* 暗色模式项目卡片 */
+        body.dark-theme .project-card {
+            background-color: #2d2d44;
+            color: #e6e6e6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .project-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        body.dark-theme .project-icon {
+            color: #74b9ff;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        body.dark-theme .project-title {
+            color: #ffffff;
+        }
+        
+        .project-description {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        body.dark-theme .project-description {
+            color: #dcdde1;
+        }
+        
+        .project-status {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .status-planning {
+            background-color: #ffeaa7;
+            color: #e17055;
+        }
+        
+        body.dark-theme .status-planning {
+            background-color: #2d3436;
+            color: #fab1a0;
+        }
+        
+        .status-in-progress {
+            background-color: #a29bfe;
+            color: white;
+        }
+        
+        body.dark-theme .status-in-progress {
+            background-color: #6c5ce7;
+            color: #dfe6e9;
+        }
+        
+        .status-special {
+            background-color: #fd79a8;
+            color: white;
+        }
+        
+        body.dark-theme .status-special {
+            background-color: #e84393;
+            color: #ffffff;
+        }
+        
+        /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        body.dark-theme .progress-container {
+            background-color: #444;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        body.dark-theme .progress-text {
+            color: #ccc;
+        }
+        
+        /* 联系信息卡片 */
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            color: #333;
+        }
+        
+        /* 暗色模式联系卡片 */
+        body.dark-theme .contact-card {
+            background-color: #2d2d44;
+            color: #e6e6e6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .contact-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        body.dark-theme .contact-card h3 {
+            color: #ffffff;
         }
         
         .contact-info {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         
-        .contact-info h3 {
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item i {
+            color: #3498db;
+            width: 25px;
+        }
+        
+        body.dark-theme .contact-item i {
             color: #74b9ff;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+        }
+        
+        body.dark-theme footer {
+            background: #1e272e;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-top: 20px;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .social-links a {
-            color: #dfe6e9;
-            font-size: 1.8rem;
-            transition: all 0.3s;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
             display: inline-block;
         }
         
         .social-links a:hover {
             color: #74b9ff;
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
         
-        .footer {
-            margin-top: 40px;
-            color: #b2bec3;
-            font-size: 0.9rem;
+        body.dark-theme .social-links a:hover {
+            color: #00a8ff;
+        }
+        
+        .copyright {
             opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        /* 更新时间显示 */
+        .update-time {
+            opacity: 0.7;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .update-time i {
+            font-size: 0.9rem;
         }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .maintenance-container {
-                padding: 30px 20px;
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
             }
             
             .logo-area {
                 flex-direction: column;
-                gap: 15px;
+                text-align: center;
+                gap: 1rem;
             }
             
-            .site-title {
-                font-size: 1.8rem;
+            .avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 3rem;
             }
             
-            h1 {
-                font-size: 2.2rem;
+            .logo {
+                font-size: 1.6rem;
             }
             
-            .message {
-                font-size: 1.1rem;
+            .nav-links {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-item {
+                justify-content: flex-start;
+                font-size: 1rem;
+            }
+            
+            .about-text, .contact-card, .project-card {
+                padding: 2rem;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
             }
         }
         
         @media (max-width: 480px) {
-            .maintenance-icon {
-                font-size: 4rem;
+            .avatar {
+                width: 75px;
+                height: 75px;
+                font-size: 2.5rem;
             }
             
-            h1 {
-                font-size: 1.8rem;
+            .logo {
+                font-size: 1.4rem;
             }
             
-            .highlight-box {
-                padding: 20px 15px;
+            .hero h1 {
+                font-size: 1.7rem;
             }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* 视频页面样式 */
+        .video-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .video-page.active {
+            display: block;
+        }
+        
+        .video-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        body.dark-theme .video-container {
+            background: #2d2d44;
+        }
+        
+        .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        
+        body.dark-theme .video-header {
+            background: #3d3d5c;
+            border-bottom-color: #555;
+        }
+        
+        .video-header h2 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        body.dark-theme .video-header h2 {
+            color: #ffffff;
+        }
+        
+        .close-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: #ff6b81;
+            transform: rotate(90deg);
+        }
+        
+        .video-content {
+            padding: 30px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        /* 本地视频样式 */
+        .local-video {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            border-radius: 10px;
+            background-color: #000;
+            display: block;
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .control-btn i {
+            margin-right: 5px;
+        }
+        
+        body.dark-theme .control-btn {
+            background: #74b9ff;
+        }
+        
+        body.dark-theme .control-btn:hover {
+            background: #0984e3;
+        }
+        
+        .video-description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        body.dark-theme .video-description {
+            background: #3d3d5c;
+            color: #e6e6e6;
+        }
+        
+        .video-description h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        body.dark-theme .video-description h3 {
+            color: #ffffff;
+        }
+        
+        /* 视频更新时间显示 */
+        .video-update-time {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .video-description p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .video-tag {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 鬼畜视频卡片特殊样式 */
+        .kz-video-card {
+            position: relative;
+        }
+        
+        .kz-video-card::after {
+            content: '点击查看';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fd79a8;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        body.dark-theme .kz-video-card::after {
+            background: #e84393;
+        }
+        
+        /* 视频占位符样式 */
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .video-placeholder p {
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <div class="maintenance-container">
-        <!-- 网站标识 -->
-        <div class="logo-area">
-            <div class="avatar">
-                <i class="fas fa-user"></i>
+    <!-- 头部 -->
+    <header>
+        <div class="container">
+            <!-- 导航栏 -->
+            <nav>
+                <!-- 左上角：头像和个人空间标题 -->
+                <div class="logo-area">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="logo">ZHB3306的个人空间</div>
+                </div>
+                
+                <!-- 右上角：导航链接 -->
+                <div class="nav-links">
+                    <a href="#about">关于</a>
+                    <a href="#projects">项目</a>
+                    <a href="#contact">联系</a>
+                </div>
+            </nav>
+            
+            <!-- 欢迎语 -->
+            <div class="hero">
+                <h1>欢迎来到ZHB3306的个人博客</h1>
             </div>
-            <div class="site-title">ZHB3306的个人空间</div>
         </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container">
+        <!-- 关于部分 -->
+        <section id="about">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>你好！欢迎来到ZHB3306的个人空间。这里暂时为空，敬请期待。</p>
+                    <p>我正在构建这个空间，准备分享我的想法、学习和生活感悟。</p>
+                </div>
+            </div>
+        </section>
         
-        <!-- 维护图标 -->
-        <div class="maintenance-icon">
-            <i class="fas fa-tools"></i>
-        </div>
-        
-        <!-- 主标题 -->
-        <h1>网站维护中</h1>
-        
-        <!-- 主要消息 -->
-        <div class="message">
-            我们正在对网站进行升级和改进，以提供更好的用户体验。
-            给您带来的不便，我们深表歉意。
-        </div>
-        
-        <!-- 维护详情 -->
-        <div class="highlight-box">
-            <h3>正在进行的工作：</h3>
-            <ul>
-                <li>服务器性能优化</li>
-                <li>用户界面改进</li>
-                <li>内容管理系统更新</li>
-                <li>安全增强措施</li>
-                <li>功能扩展与测试</li>
-            </ul>
-        </div>
-        
-        <!-- 联系信息 -->
-        <div class="contact-info">
-            <h3>紧急联系</h3>
-            <p>如有紧急事宜，请通过以下方式联系我们：</p>
-            <div class="social-links">
-                <a href="https://github.com/zhb3306/" title="GitHub">
-                    <i class="fab fa-github"></i>
+        <!-- 正在制作的项目部分 -->
+        <section id="projects" class="projects-section">
+            <h2 class="section-title">正在制作的项目</h2>
+            <div class="projects-container">
+                <!-- 项目1 -->
+                <a href="#" class="project-card" id="blog-project">
+                    <div class="project-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="project-title">个人博客系统</h3>
+                    <div class="project-description">
+                        一个完全自定义的个人博客系统，包含文章管理、标签分类、评论功能等，使用现代前端技术和响应式设计。
+                    </div>
+                    <div class="project-status status-in-progress">
+                        开发中 (60%)
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <div class="progress-text">进度: 60%</div>
+                </a>
+                
+                <!-- 项目2 -->
+                <a href="#" class="project-card" id="game-project">
+                    <div class="project-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="project-title">小游戏合集</h3>
+                    <div class="project-description">
+                        一个包含多个小游戏的网页应用，如贪吃蛇、俄罗斯方块等，使用JavaScript和Canvas技术实现。
+                    </div>
+                    <div class="project-status status-planning">
+                        规划中
+                    </div>
+                </a>
+                
+                <!-- 项目3：鬼畜视频 -->
+                <a href="#" class="project-card kz-video-card" id="kz-video-project">
+                    <div class="project-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="project-title">鬼畜视频制作</h3>
+                    <div class="project-description">
+                        创作和制作有趣、创意的鬼畜视频，包含音频处理、视频剪辑、特效制作等内容，分享到各大视频平台。
+                    </div>
+                    <div class="project-status status-special">
+                        鬼畜创作中 (48%)
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 48%;"></div>
+                    </div>
+                    <div class="progress-text">进度: 48%</div>
                 </a>
             </div>
-        </div>
+        </section>
         
-        <!-- 页脚 -->
-        <div class="footer">
-            <p>© 2026 ZHB STUDIOS | 感谢您的耐心等待</p>
+        <!-- 联系信息 -->
+        <section id="contact">
+            <div class="contact-card">
+                <h3>联系我</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>邮箱: zhb1323306@outlook.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>城市: 辽宁·沈阳</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-heart"></i>
+                        <span>兴趣: 编程、摄影、视频创作</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/zhb3306/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/zhb3306/" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+            <p>感谢你的访问，期待与你的交流</p>
+            <p class="copyright">© 2026 ZHB STUDIOS | 简单 · 真实 · 分享</p>
+            <!-- 页面更新时间显示 -->
+            <div class="update-time">
+                <i class="far fa-clock"></i>
+                <span id="last-update-time">最后更新: 加载中...</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 鬼畜视频页面 -->
+    <div class="video-page" id="kz-video-page">
+        <div class="video-container">
+            <div class="video-header">
+                <h2>鬼畜视频作品展示</h2>
+                <button class="close-btn" id="close-video">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-content">
+                <!-- 本地视频播放器 -->
+                <div class="video-wrapper">
+                    <!-- 使用HTML5 video标签播放本地视频 -->
+                    <video id="localVideo" class="local-video" controls>
+                        <!-- 视频源文件，请将视频文件放在与HTML文件相同的目录下，或修改src路径 -->
+                        <source src="video/kz-video.mp4" type="video/mp4">
+                        <source src="video/kz-video.webm" type="video/webm">
+                        <source src="video/kz-video.ogg" type="video/ogg">
+                        您的浏览器不支持HTML5视频播放，请更新浏览器或使用其他浏览器访问。
+                    </video>
+                </div>
+                
+                <!-- 视频控制按钮 -->
+                <div class="video-controls">
+                    <button class="control-btn" id="playBtn">
+                        <i class="fas fa-play"></i>播放
+                    </button>
+                    <button class="control-btn" id="pauseBtn">
+                        <i class="fas fa-pause"></i>暂停
+                    </button>
+                    <button class="control-btn" id="muteBtn">
+                        <i class="fas fa-volume-up"></i>静音
+                    </button>
+                    <button class="control-btn" id="fullscreenBtn">
+                        <i class="fas fa-expand"></i>全屏
+                    </button>
+                    <button class="control-btn" id="replayBtn">
+                        <i class="fas fa-redo"></i>重播
+                    </button>
+                </div>
+                
+                <div class="video-description">
+                    <h3>
+                        视频介绍
+                        <!-- 鬼畜视频更新时间显示 -->
+                        <span class="video-update-time" id="video-update-time">
+                            <i class="far fa-clock"></i> 视频更新: 加载中...
+                        </span>
+                    </h3>
+                    <p>这是一个创意鬼畜视频作品，结合了流行文化元素和幽默剪辑手法。视频通过对原始素材的重新编排、音频处理、特效添加等手法，创造出了独特的视听体验。</p>
+                    <p>制作过程包括：素材收集、音频剪辑、视频特效、时间轴同步和后期渲染等步骤。这个项目展示了我在视频创作方面的兴趣和技术能力。</p>
+                    
+                    <div class="video-tags">
+                        <span class="video-tag">鬼畜</span>
+                        <span class="video-tag">创意剪辑</span>
+                        <span class="video-tag">音频处理</span>
+                        <span class="video-tag">特效制作</span>
+                        <span class="video-tag">幽默风格</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // 添加一些视觉效果
-        document.addEventListener('DOMContentLoaded', function() {
-            // 添加页面加载动画
-            const elements = document.querySelectorAll('.maintenance-container > *');
-            elements.forEach((element, index) => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(20px)';
+        // 平滑滚动到锚点
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
                 
-                setTimeout(() => {
-                    element.style.transition = 'opacity 0.8s, transform 0.8s';
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }, index * 200);
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
             });
+        });
+        
+        // 简单的主题切换按钮
+        const themeToggle = document.createElement('button');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        themeToggle.style.position = 'fixed';
+        themeToggle.style.bottom = '20px';
+        themeToggle.style.right = '20px';
+        themeToggle.style.background = '#3498db';
+        themeToggle.style.color = 'white';
+        themeToggle.style.border = 'none';
+        themeToggle.style.borderRadius = '50%';
+        themeToggle.style.width = '50px';
+        themeToggle.style.height = '50px';
+        themeToggle.style.cursor = 'pointer';
+        themeToggle.style.zIndex = '1000';
+        themeToggle.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+        themeToggle.style.transition = 'all 0.3s';
+        
+        themeToggle.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        
+        themeToggle.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        document.body.appendChild(themeToggle);
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            if(document.body.classList.contains('dark-theme')) {
+                // 暗色模式
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggle.style.background = '#f39c12';
+            } else {
+                // 浅色模式
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                themeToggle.style.background = '#3498db';
+            }
+            
+            // 保存主题偏好到本地存储
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            localStorage.setItem('dark-theme', isDarkTheme);
+        });
+        
+        // 页面加载时检查本地存储的主题偏好
+        window.addEventListener('DOMContentLoaded', () => {
+            const isDarkTheme = localStorage.getItem('dark-theme') === 'true';
+            if (isDarkTheme) {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggle.style.background = '#f39c12';
+            }
+            
+            // 显示页面最后更新时间
+            updateLastModifiedTime();
+            
+            // 显示鬼畜视频更新时间
+            updateVideoModifiedTime();
+        });
+        
+        // 显示页面最后更新时间
+        function updateLastModifiedTime() {
+            const lastModifiedTime = document.lastModified;
+            const updateTimeElement = document.getElementById('last-update-time');
+            
+            if (lastModifiedTime) {
+                // 将日期字符串转换为更友好的格式
+                const lastModifiedDate = new Date(lastModifiedTime);
+                const options = { 
+                    year: 'numeric', 
+                    month: '2-digit', 
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                };
+                
+                // 格式化为：YYYY-MM-DD HH:MM:SS
+                const formattedDate = lastModifiedDate.toLocaleDateString('zh-CN', options).replace(/\//g, '-');
+                const formattedTime = lastModifiedDate.toLocaleTimeString('zh-CN', {hour12: false});
+                
+                // 组合显示
+                const displayTime = `最后更新: ${formattedDate} ${formattedTime}`;
+                updateTimeElement.textContent = displayTime;
+            } else {
+                updateTimeElement.textContent = '最后更新: 时间不可用';
+            }
+        }
+        
+        // 显示鬼畜视频更新时间
+        function updateVideoModifiedTime() {
+            const videoUpdateTimeElement = document.getElementById('video-update-time');
+            
+            // 这里可以硬编码一个视频更新时间，或者尝试获取视频文件的最后修改时间
+            // 由于安全限制，JavaScript无法直接获取本地文件的修改时间
+            // 所以我们可以设置一个固定的更新时间，或者让用户手动更新
+            
+            // 设置一个默认的视频更新时间
+            const videoLastUpdate = "2026-02-08 16:08:37"; // 可以手动修改这个时间
+            
+            // 显示视频更新时间
+            videoUpdateTimeElement.innerHTML = `<i class="far fa-clock"></i> 视频更新: ${videoLastUpdate}`;
+            
+            // 或者尝试通过fetch获取视频文件的最后修改时间（需要服务器支持CORS）
+            // 注意：这只适用于视频文件在服务器上的情况
+            try {
+                const videoUrl = 'video/kz-video.mp4';
+                fetch(videoUrl, { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            const lastModified = response.headers.get('Last-Modified');
+                            if (lastModified) {
+                                const videoDate = new Date(lastModified);
+                                const options = { 
+                                    year: 'numeric', 
+                                    month: '2-digit', 
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                
+                                const formattedDate = videoDate.toLocaleDateString('zh-CN', options).replace(/\//g, '-');
+                                const formattedTime = videoDate.toLocaleTimeString('zh-CN', {hour12: false});
+                                videoUpdateTimeElement.innerHTML = `<i class="far fa-clock"></i> 视频更新: ${formattedDate} ${formattedTime}`;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log('无法获取视频文件更新时间，使用默认时间');
+                    });
+            } catch (error) {
+                console.log('无法获取视频文件更新时间，使用默认时间');
+            }
+        }
+        
+        // 鬼畜视频页面功能
+        const kzVideoCard = document.getElementById('kz-video-project');
+        const kzVideoPage = document.getElementById('kz-video-page');
+        const closeVideoBtn = document.getElementById('close-video');
+        const localVideo = document.getElementById('localVideo');
+        
+        // 点击鬼畜视频卡片打开视频页面
+        kzVideoCard.addEventListener('click', function(e) {
+            e.preventDefault();
+            kzVideoPage.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+            
+            // 尝试加载视频
+            localVideo.load();
+            
+            // 更新视频页面打开时间
+            updateVideoOpenTime();
+        });
+        
+        // 点击关闭按钮关闭视频页面
+        closeVideoBtn.addEventListener('click', function() {
+            kzVideoPage.classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+            localVideo.pause(); // 关闭时暂停视频
+        });
+        
+        // 点击视频页面背景关闭视频页面
+        kzVideoPage.addEventListener('click', function(e) {
+            if (e.target === kzVideoPage) {
+                kzVideoPage.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                localVideo.pause();
+            }
+        });
+        
+        // ESC键关闭视频页面
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && kzVideoPage.classList.contains('active')) {
+                kzVideoPage.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                localVideo.pause();
+            }
+        });
+        
+        // 更新视频页面打开时间
+        function updateVideoOpenTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            
+            const formattedDate = now.toLocaleDateString('zh-CN', options).replace(/\//g, '-');
+            const formattedTime = now.toLocaleTimeString('zh-CN', {hour12: false});
+            
+            // 可以在这里显示页面打开时间，如果需要的话
+            console.log(`鬼畜视频页面打开时间: ${formattedDate} ${formattedTime}`);
+        }
+        
+        // 视频控制功能
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const replayBtn = document.getElementById('replayBtn');
+        
+        // 播放按钮
+        playBtn.addEventListener('click', function() {
+            localVideo.play();
+        });
+        
+        // 暂停按钮
+        pauseBtn.addEventListener('click', function() {
+            localVideo.pause();
+        });
+        
+        // 静音按钮
+        muteBtn.addEventListener('click', function() {
+            if (localVideo.muted) {
+                localVideo.muted = false;
+                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>静音';
+            } else {
+                localVideo.muted = true;
+                muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>取消静音';
+            }
+        });
+        
+        // 全屏按钮
+        fullscreenBtn.addEventListener('click', function() {
+            if (localVideo.requestFullscreen) {
+                localVideo.requestFullscreen();
+            } else if (localVideo.mozRequestFullScreen) {
+                localVideo.mozRequestFullScreen();
+            } else if (localVideo.webkitRequestFullscreen) {
+                localVideo.webkitRequestFullscreen();
+            } else if (localVideo.msRequestFullscreen) {
+                localVideo.msRequestFullscreen();
+            }
+        });
+        
+        // 重播按钮
+        replayBtn.addEventListener('click', function() {
+            localVideo.currentTime = 0;
+            localVideo.play();
+        });
+        
+        // 其他项目卡片点击事件
+        document.getElementById('blog-project').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('个人博客系统页面正在开发中...');
+        });
+        
+        document.getElementById('game-project').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('小游戏合集页面正在开发中...');
+        });
+        
+        // 视频错误处理
+        localVideo.addEventListener('error', function() {
+            console.error('视频加载失败，请检查视频文件路径和格式');
+            
+            // 显示占位符提示
+            const videoWrapper = document.querySelector('.video-wrapper');
+            videoWrapper.innerHTML = `
+                <div class="video-placeholder">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>视频加载失败</p>
+                    <p>请确保视频文件位于: <strong>video/kz-video.mp4</strong></p>
+                    <p>支持的格式: MP4, WebM, Ogg</p>
+                </div>
+            `;
         });
     </script>
 </body>
 </html>
+
